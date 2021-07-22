@@ -85,30 +85,16 @@ router
       if (instagram) profileFields.social.instagram = instagram;
 
       try {
-        let profile = await Profile.findOne({ user: req.user.id });
-        console.log(`User ID: ${req.user.id}`);
-
-        if (profile) {
-          // Update
-          console.log('Exists.');
-          console.log(profile);
-          profile = await Profile.findByIdAndUpdate(
-            { user: req.user.id },
-            { $set: profileFields },
-            { new: true }
-          );
-
-          return res.json({ profile });
-        }
-
-        // Create
-        profile = new Profile(profileFields);
-
-        await profile.save();
-        res.json({ profile });
-      } catch (error) {
-        console.error(error.message);
-        res.status(500).send('Server error.');
+        // Using upsert option (creates new doc if no match is found):
+        let profile = await Profile.findOneAndUpdate(
+          { user: req.user.id },
+          { $set: profileFields },
+          { new: true, upsert: true, setDefaultsOnInsert: true }
+        );
+        return res.json(profile);
+      } catch (err) {
+        console.error(err.message);
+        return res.status(500).send('Server Error');
       }
     }
   );
