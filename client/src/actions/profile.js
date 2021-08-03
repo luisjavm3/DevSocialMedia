@@ -27,6 +27,8 @@ export const getCurrentProfile = () => async (dispatch) => {
 export const createProfile =
   (formData, history, edit = false) =>
   async (dispatch) => {
+    console.log('CREATE_PROFILE');
+
     try {
       const config = {
         headers: {
@@ -36,18 +38,23 @@ export const createProfile =
 
       const res = await axios.post('api/profile', formData, config);
 
+      console.log(res.data);
+
       dispatch({
         type: GET_PROFILE,
         payload: res.data,
       });
 
-      dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created'));
+      dispatch(
+        setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success')
+      );
 
       if (!edit) {
         history.push('/dashboard');
       }
     } catch (error) {
       const errors = error.response.data.errors;
+      console.log(error);
 
       if (errors) {
         errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
