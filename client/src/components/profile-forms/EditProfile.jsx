@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { createProfile, getCurrentProfile } from '../../actions/profile';
 
@@ -72,8 +72,7 @@ const EditProfile = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('ONSUBMIT');
-    createProfile(formData, history);
+    createProfile(formData, history, true);
   };
 
   return (
@@ -243,9 +242,9 @@ const EditProfile = ({
         )}
 
         <input type="submit" className="btn btn-primary my-1" />
-        <a className="btn btn-light my-1" href="dashboard.html">
+        <Link className="btn btn-light my-1" to="/dashboard">
           Go Back
-        </a>
+        </Link>
       </form>
     </Fragment>
   );
