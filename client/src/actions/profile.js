@@ -139,3 +139,14 @@ export const addEducation = (formData, history) => async (dispatch) => {
     });
   }
 };
+
+// Delete experience
+export const deleteExperience = (id) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/api/profile/experience/${id}`);
+
+    // dispatch({
+    //   type:
+    // })
+  } catch (error) {}
+};
