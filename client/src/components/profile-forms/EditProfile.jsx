@@ -6,10 +6,7 @@ import { Link } from 'react-router-dom';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
 
 const EditProfile = ({
-  profile: {
-    loading,
-    profile: { profile },
-  },
+  profile: { loading, profile },
   createProfile,
   getCurrentProfile,
   history,
@@ -35,22 +32,39 @@ const EditProfile = ({
     getCurrentProfile();
 
     setFormData({
-      company: loading || !profile.company ? '' : profile.company,
-      website: loading || !profile.website ? '' : profile.website,
-      location: loading || !profile.location ? '' : profile.location,
-      status: loading || !profile.status ? '' : profile.status,
-      skills: loading || !profile.skills ? '' : profile.skills,
+      company:
+        loading || !profile.profile.company ? '' : profile.profile.company,
+      website:
+        loading || !profile.profile.website ? '' : profile.profile.website,
+      location:
+        loading || !profile.profile.location ? '' : profile.profile.location,
+      status: loading || !profile.profile.status ? '' : profile.profile.status,
+      skills: loading || !profile.profile.skills ? '' : profile.profile.skills,
       githubusername:
-        loading || !profile.githubusername ? '' : profile.githubusername,
-      bio: loading || !profile.bio ? '' : profile.bio,
-      twitter: loading || !profile.social.twitter ? '' : profile.social.twitter,
+        loading || !profile.profile.githubusername
+          ? ''
+          : profile.profile.githubusername,
+      bio: loading || !profile.profile.bio ? '' : profile.profile.bio,
+      twitter:
+        loading || !profile.profile.social?.twitter
+          ? ''
+          : profile.profile.social.twitter,
       facebook:
-        loading || !profile.social.facebook ? '' : profile.social.facebook,
+        loading || !profile.profile.social?.facebook
+          ? ''
+          : profile.profile.social.facebook,
       linkedin:
-        loading || !profile.social.linkedin ? '' : profile.social.linkedin,
-      youtube: loading || !profile.social.youtube ? '' : profile.social.youtube,
+        loading || !profile.profile.social?.linkedin
+          ? ''
+          : profile.profile.social.linkedin,
+      youtube:
+        loading || !profile.profile.social?.youtube
+          ? ''
+          : profile.profile.social.youtube,
       instagram:
-        loading || !profile.social.instagram ? '' : profile.social.instagram,
+        loading || !profile.profile.social?.instagram
+          ? ''
+          : profile.profile.social.instagram,
     });
   }, [loading]);
 
